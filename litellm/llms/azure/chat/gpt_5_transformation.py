@@ -25,6 +25,9 @@ class AzureOpenAIGPT5Config(AzureOpenAIConfig, OpenAIGPT5Config):
         return "gpt-5" in model or "gpt5_series" in model
 
     def get_supported_openai_params(self, model: str) -> List[str]:
+        if not model.startswith("azure/"):
+            model = "azure/" + model
+
         return OpenAIGPT5Config.get_supported_openai_params(self, model=model)
 
     def map_openai_params(
